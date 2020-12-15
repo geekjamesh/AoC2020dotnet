@@ -9,7 +9,6 @@ namespace me.jamesharvey.advent._2020.day01
         static void Main(string[] args)
         {
             List<string> inputValues = new List<string>();
-            var input = Console.ReadLine();
             using (var reader = new StreamReader("input.txt"))
             {
                 string item = reader.ReadLine();

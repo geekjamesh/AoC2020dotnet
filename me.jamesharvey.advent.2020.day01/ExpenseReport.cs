@@ -20,13 +20,18 @@ namespace me.jamesharvey.advent._2020.day01
             {
                 for(int outerIndex = 0; outerIndex < input.Count; outerIndex+=1){
                     var value1 = int.Parse(input[outerIndex]);
-                    for(int innerIndex = outerIndex + 1; innerIndex < input.Count; innerIndex+=1){
-                        var value2 = int.Parse(input[innerIndex]);
+                    for(int middleIndex = outerIndex + 1; middleIndex < input.Count; middleIndex+=1){
+                        var value2 = int.Parse(input[middleIndex]);
 
-                        if (value1 + value2 == expectedValue) {
-                            results.Add(value1);
-                            results.Add(value2);
-                            return results;
+                        for(int innerIndex = middleIndex + 1; innerIndex < input.Count; innerIndex+=1){
+                            var value3 = int.Parse(input[innerIndex]);
+
+                            if (value1 + value2 + value3 == expectedValue) {
+                                results.Add(value1);
+                                results.Add(value2);
+                                results.Add(value3);
+                                return results;
+                            }
                         }
                     }
                 }
