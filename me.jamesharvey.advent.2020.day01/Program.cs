@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace me.jamesharvey.advent._2020.day01
 {
@@ -7,12 +8,15 @@ namespace me.jamesharvey.advent._2020.day01
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter Values, press q to quit");
             List<string> inputValues = new List<string>();
             var input = Console.ReadLine();
-            while (input != "q" && input != "Q") {
-                inputValues.Add(input);
-                input = Console.ReadLine();
+            using (var reader = new StreamReader("input.txt"))
+            {
+                string item = reader.ReadLine();
+                while(item != null) {
+                    inputValues.Add(item);
+                    item = reader.ReadLine();
+                }
             }
             try
             {
