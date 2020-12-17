@@ -15,13 +15,25 @@ namespace me.jamesharvey.advent._2020.day02
         
         public bool IsValid {
             get {
-                int occurances = value.Count(f => f == policy.RestrictedLetter);
-                if (occurances >= policy.MinimumOccurances && occurances <= policy.MaximumOccurances) {
-                    return true;
-                } else {
+                var occurances = new List<int>();
+                for(int index = 0;index < value.Length; index+=1) {
+                    if (value[index] == policy.RestrictedLetter) {
+                        occurances.Add(index+1);
+                    }
+                }
+
+                if (occurances.Count == 0) {
                     return false;
                 }
-                
+                else {
+                    if (occurances.Contains(policy.FirstPosition) ^ occurances.Contains(policy.SecondPosition)){
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+
             }  
         }
     }

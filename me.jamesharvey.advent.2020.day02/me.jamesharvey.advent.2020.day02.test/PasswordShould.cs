@@ -10,8 +10,6 @@ namespace me.jamesharvey.advent._2020.day02.test
         {
             Password password = new Password("1-3 a", "abcde");
             Assert.True(password.IsValid);
-            Password password2 = new Password("2-9 c", "ccccccccc");
-            Assert.True(password2.IsValid);
         }
 
         [Fact]
@@ -19,6 +17,8 @@ namespace me.jamesharvey.advent._2020.day02.test
         {
             Password password = new Password("1-3 b", "cdefg");
             Assert.False(password.IsValid);
+            Password password2 = new Password("2-9 c", "ccccccccc");
+            Assert.False(password2.IsValid);
         }
     }
 }
