@@ -21,7 +21,12 @@ namespace me.jamesharvey.advent._2020.day03
             try
             {
                 var mapper = new Mapper(inputValues);
-                int result = mapper.CheckRouteForTrees();
+                long result1 = mapper.CheckRouteForTrees(1, 1);
+                long result2 = mapper.CheckRouteForTrees(3, 1);
+                long result3 = mapper.CheckRouteForTrees(5, 1);
+                long result4 = mapper.CheckRouteForTrees(7, 1);
+                long result5 = mapper.CheckRouteForTrees(1, 2);
+                long result = result1 * result2 * result3 * result4 * result5;
                 
                 Console.WriteLine($"Answer = {result}");
             }

@@ -5,17 +5,17 @@ namespace me.jamesharvey.advent._2020.day03
 {
     public class Mapper {
 
-        private readonly List<string> map; 
+        private readonly List<string> map;
 
         public Mapper(List<string> map) {
             this.map = map;
         }
 
-        public int CheckRouteForTrees() {
+        public int CheckRouteForTrees(int xAxisStep, int yAxisStep) {
             int trees = 0;
             int xCoOrd = 0;
-            foreach(string mapLine in map) {
-                string treeLine = mapLine;
+            for (int index = 0; index < map.Count; index += yAxisStep) {
+                string treeLine = map[index];
                 while (treeLine.Length <= xCoOrd + 1) {
                     treeLine+=treeLine;
                 }
@@ -23,7 +23,8 @@ namespace me.jamesharvey.advent._2020.day03
                 if (treeLine[xCoOrd] == '#') {
                     trees += 1;
                 }
-                xCoOrd += 3;
+                xCoOrd += xAxisStep;
+                
             }
             return trees;
         }
