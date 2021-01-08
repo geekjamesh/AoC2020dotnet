@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System;
 
 namespace me.jamesharvey.advent._2020.day04
@@ -25,13 +26,11 @@ namespace me.jamesharvey.advent._2020.day04
 
         public bool IsValid {
             get {
-                if (BirthYear != null && IssueYear != null && ExpirationYear != null && Height != null && HairColour != null && EyeColour != null && PassportId != null) {
+                if (isValidBirthYear(BirthYear) && isValidIssueYear(IssueYear) && isValidExpirationYear(ExpirationYear) && isValidHeight(Height)
+                        && isValidHairColour(HairColour) && isValidEyeColour(EyeColour) && isValidPassportId(PassportId) && isValidCountryId(CountryId)) {
                     return true;
                 }
-                else {
-                    return false;
-                }
-                
+                return false;
             }
         }
 
@@ -66,6 +65,130 @@ namespace me.jamesharvey.advent._2020.day04
                 default:
                     throw new ArgumentException($"Invalid Passport detail - {detail}");
             }
+        }
+
+        private bool isValidBirthYear(string value){
+            if (value == null) {
+                return false;
+            }
+            if (value.Length != 4) {
+                return false;
+            }
+            try {
+                int year = int.Parse(value);
+                if (year <1920 || year > 2002) {
+                    return false;
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error parsing year {value} - {ex.Message}");
+                return false;
+            }
+            
+            return true;
+        }
+
+        private bool isValidIssueYear(string value){
+            if (value == null) {
+                return false;
+            }
+            if (value.Length != 4) {
+                return false;
+            }
+            try {
+                int year = int.Parse(value);
+                if (year < 2010 || year > 2020) {
+                    return false;
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error parsing year {value} - {ex.Message}");
+                return false;
+            }
+            return true;
+        }
+
+        private bool isValidExpirationYear(string value){
+            if (value == null) {
+                return false;
+            }
+            if (value.Length != 4) {
+                return false;
+            }
+            try {
+                int year = int.Parse(value);
+                if (year < 2020 || year > 2030) {
+                    return false;
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error parsing year {value} - {ex.Message}");
+                return false;
+            }
+            return true;
+        }
+
+        private bool isValidHeight(string value){
+            if (value == null) {
+                return false;
+            }
+            if (Regex.IsMatch(value, "^\\d+(in|cm)$", RegexOptions.IgnoreCase)) {
+                int cm = value.IndexOf("cm");
+                int inch = value.IndexOf("in");
+                if (cm > 0) {
+                    int heightCm = int.Parse(value.Substring(0, cm));
+                    if (heightCm < 150 || heightCm > 193) {
+                        return false;
+                    }
+                }
+                else if (inch > 0) {
+                    int heightIn = int.Parse(value.Substring(0, inch));
+                    if (heightIn < 59 || heightIn > 76) {
+                        return false;
+                    }
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+            return true;
+        }
+
+        private bool isValidHairColour(string value){
+            if (value == null) {
+                return false;
+            }
+            if (!Regex.IsMatch(value, "^#[0-9|a-f]{6}$", RegexOptions.IgnoreCase)) {
+                return false;
+            }
+            return true;
+        }
+
+        private bool isValidEyeColour(string value){
+            if (value == null) {
+                return false;
+            }
+            if (!Regex.IsMatch(value, "^(amb|blu|brn|gry|grn|hzl|oth)$", RegexOptions.IgnoreCase)) {
+                return false;
+            }
+            return true;
+        }
+
+        private bool isValidPassportId(string value){
+            if (value == null) {
+                return false;
+            }
+            if (!Regex.IsMatch(value, "^\\d{9}$", RegexOptions.IgnoreCase)) {
+                return false;
+            }
+            return true;
+        }
+
+        private bool isValidCountryId(string value){
+            return true;
         }
 
     }
